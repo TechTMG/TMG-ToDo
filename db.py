@@ -1,6 +1,6 @@
 import pymysql.cursors
 
-def connecter():
+def get_connecter():
     conn = pymysql.connect(
         host = 'localhost',
         user = 'root',
