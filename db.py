@@ -11,7 +11,7 @@ def get_connecter():
     return conn
 
 def get_SELECT():
-    conn = connecter()
+    conn = get_connecter()
     try:
         with conn.cursor() as cursor:
             sql = 'SELECT * FROM todo' 
