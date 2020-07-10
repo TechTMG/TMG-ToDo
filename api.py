@@ -10,20 +10,24 @@ def hello():
     name = "Hello World"
     return name
 
+
 @app.route('/good')
 def good():
     name = "Good"
     return name
+
 
 @app.route('/aaa')
 def aaa():
     a = request.args.get('name')
     return a
 
+
 @app.route('/db')
 def getdb():
     a = str(get_SELECT())
     return a
+
 
 @app.route('/task/<n>')
 def gettask(n):
@@ -31,9 +35,10 @@ def gettask(n):
     if a:
         a = jsonify(a)
     else:
-        a = jsonify({"message":"該当idのデータはありません"})
+        a = jsonify({"message": "該当idのデータはありません"})
     return a
 
-## おまじない
+
+# おまじない
 if __name__ == "__main__":
     app.run(debug=True)

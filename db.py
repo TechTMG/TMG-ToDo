@@ -1,26 +1,29 @@
 import pymysql.cursors
 
+
 def get_connecter():
     conn = pymysql.connect(
-        host = 'localhost',
-        user = 'root',
-        db = 'test-schema',
-        charset = 'utf8mb4',
-        cursorclass = pymysql.cursors.DictCursor
-        )
+        host='localhost',
+        user='root',
+        db='test-schema',
+        charset='utf8mb4',
+        cursorclass=pymysql.cursors.DictCursor
+    )
     return conn
+
 
 def get_SELECT():
     conn = get_connecter()
     try:
         with conn.cursor() as cursor:
-            sql = 'SELECT * FROM todo' 
+            sql = 'SELECT * FROM todo'
             cursor.execute(sql)
             result = cursor.fetchall()
             print(result)
     finally:
         conn.close()
     return result
+
 
 def get_task(n):
     conn = get_connecter()
