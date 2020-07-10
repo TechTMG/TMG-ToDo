@@ -1,7 +1,9 @@
-from flask import Flask, request
-app = Flask(__name__)
+from flask import Flask, request, jsonify
+from db import get_SELECT, get_task
 
-from db import get_SELECT
+app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
+
 
 @app.route('/')
 def hello():
@@ -21,6 +23,15 @@ def aaa():
 @app.route('/db')
 def getdb():
     a = str(get_SELECT())
+    return a
+
+@app.route('/task/<n>')
+def gettask(n):
+    a = get_task(n)
+    if a:
+        a = jsonify(a)
+    else:
+        a = jsonify({"message":"該当idのデータはありません"})
     return a
 
 ## おまじない
