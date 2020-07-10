@@ -23,7 +23,7 @@ def get_SELECT():
     return result
 
 def get_task(n):
-    conn = connecter()
+    conn = get_connecter()
     try:
         with conn.cursor() as cursor:
             sql = 'SELECT * FROM todo WHERE id = %s'
