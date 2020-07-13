@@ -1,4 +1,5 @@
 import pymysql.cursors
+import json
 
 
 def get_connecter():
@@ -34,3 +35,23 @@ def get_task(n):
     finally:
         conn.close()
     return result
+
+
+def post_task(n):
+    conn = get_connecter()
+    try:
+        posted = json.loads(n)
+        title = str(posted['title'])
+        context = str(posted['context'])
+        limit_date = str(posted['limit_date'])
+        with conn.cursor() as cursor:
+            sql = '''INSERT INTO
+             todo (title, context, done, created_at, limit_date, updated_at)
+             VALUES (%s, %s, 0, NOW(), %s, NOW())'''
+            cursor.execute(sql, (title, context, limit_date))
+            conn.commit()
+    except Exception as e:
+        print(e)
+    finally:
+        conn.close()
+    return "complete"
