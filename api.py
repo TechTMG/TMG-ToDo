@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from db import get_SELECT, get_task
+from db import get_alltask, get_task
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -23,9 +23,13 @@ def aaa():
     return a
 
 
-@app.route('/db')
-def getdb():
-    a = str(get_SELECT())
+@app.route('/task', methods=['GET'])
+def getalltask():
+    a = get_alltask()
+    if a:
+        a = jsonify(a)
+    else:
+        a = jsonify({"message": "タスクデータはありません"})
     return a
 
 

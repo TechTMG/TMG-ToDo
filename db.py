@@ -12,14 +12,13 @@ def get_connecter():
     return conn
 
 
-def get_SELECT():
+def get_alltask():
     conn = get_connecter()
     try:
         with conn.cursor() as cursor:
             sql = 'SELECT * FROM todo'
             cursor.execute(sql)
             result = cursor.fetchall()
-            print(result)
     finally:
         conn.close()
     return result
