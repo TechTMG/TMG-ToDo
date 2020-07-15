@@ -1,42 +1,40 @@
 from flask import Flask, request, jsonify
-from db import get_SELECT, get_task
+from db import get_alltask, get_task, post_task
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 
 
 @app.route('/')
-def hello():
-    name = "Hello World"
-    return name
+def index():
+    title = "Tech TMG"
+    return title
 
 
-@app.route('/good')
-def good():
-    name = "Good"
-    return name
-
-
-@app.route('/aaa')
-def aaa():
-    a = request.args.get('name')
-    return a
-
-
-@app.route('/db')
-def getdb():
-    a = str(get_SELECT())
-    return a
-
-
-@app.route('/task/<n>')
-def gettask(n):
-    a = get_task(n)
-    if a:
-        a = jsonify(a)
+@app.route('/task', methods=['GET'])
+def getalltask():
+    task_json = get_alltask()
+    if task_json:
+        result = jsonify(task_json)
     else:
-        a = jsonify({"message": "該当idのデータはありません"})
-    return a
+        result = "タスクデータはありません"
+    return result
+
+
+@app.route('/task/<id>', methods=['GET'])
+def gettask(id):
+    task_json = get_task(id)
+    if task_json:
+        result = jsonify(task_json)
+    else:
+        result = "該当idのデータはありません"
+    return result
+
+
+@app.route('/task', methods=['POST'])
+def posttask():
+    post_json = request.get_data()
+    return post_task(post_json)
 
 
 # おまじない
