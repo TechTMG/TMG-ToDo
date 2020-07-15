@@ -34,8 +34,7 @@ def gettask(id):
 @app.route('/task', methods=['POST'])
 def posttask():
     post_json = request.get_data()
-    result = post_task(post_json)
-    return result
+    return post_task(post_json)
 
 
 # おまじない
