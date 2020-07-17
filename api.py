@@ -17,8 +17,8 @@ def getalltask():
     if get_json:
         task_return = jsonify(get_json)
     else:
-        task_return = jsonify({"message": "タスクデータはありません"})
-    return task_return
+        result = "タスクデータはありません"
+    return result
 
 
 @app.route('/task/<id>', methods=['GET'])
@@ -27,8 +27,8 @@ def gettask(id):
     if get_json:
         task_return = jsonify(get_json)
     else:
-        task_return = jsonify({"message": "該当idのデータはありません"})
-    return task_return
+        result = "該当idのデータはありません"
+    return result
 
 
 @app.route('/task', methods=['POST'])

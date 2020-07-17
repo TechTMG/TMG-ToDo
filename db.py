@@ -20,6 +20,9 @@ def get_alltask():
             sql = 'SELECT * FROM todo'
             cursor.execute(sql)
             result = cursor.fetchall()
+    except Exception as e:
+        print(e)
+        result = "ERROR"
     finally:
         conn.close()
     return result
@@ -32,6 +35,9 @@ def get_task(n):
             sql = 'SELECT * FROM todo WHERE id = %s'
             cursor.execute(sql, (n))
             result = cursor.fetchone()
+    except Exception as e:
+        print(e)
+        result = "ERROR"
     finally:
         conn.close()
     return result
@@ -51,13 +57,13 @@ def post_task(n):
              VALUES (%s, %s, 0, NOW(), %s, NOW())'''
             cursor.execute(sql, (title, context, limit_date))
             conn.commit()
-            response = "COMPLETE INSERT"
+            result = "COMPLETE INSERT"
     except Exception as e:
         print(e)
-        response = "ERROR"
+        result = "ERROR"
     finally:
         conn.close()
-    return response
+    return result
 
 
 def update_task(n):
