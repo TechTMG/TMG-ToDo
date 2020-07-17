@@ -15,7 +15,7 @@ def index():
 def getalltask():
     get_json = get_alltask()
     if get_json:
-        task_return = jsonify(get_json)
+        result = jsonify(get_json)
     else:
         result = "タスクデータはありません"
     return result
@@ -25,7 +25,7 @@ def getalltask():
 def gettask(id):
     get_json = get_task(id)
     if get_json:
-        task_return = jsonify(get_json)
+        result = jsonify(get_json)
     else:
         result = "該当idのデータはありません"
     return result
