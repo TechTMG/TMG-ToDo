@@ -62,19 +62,23 @@ def post_task(n):
 
 def update_task(n):
     posted = json.loads(n)
-    id = str(posted['id'])
+    taskid = int(posted['id'])
     title = str(posted['title'])
     context = str(posted['context'])
-    done = str(posted['done'])
+    done = int(posted['done'])
     limit_date = str(posted['limit_date'])
 
     conn = get_connecter()
     try:
         with conn.cursor() as cursor:
             sql = '''UPDATE todo
-            SET title = %s
+            SET title = %s,
+            context = %s,
+            done = %s,
+            limit_date = %s,
+            update_at = NOW(),
             WHERE id = %s'''
-            cursor.execute(sql)
+            cursor.execute(sql, (title, context, done, limit_date, taskid))
             conn.commit()
             response = "COMPLETE UPDATE"
     except Exception as e:

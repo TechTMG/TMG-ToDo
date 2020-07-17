@@ -34,15 +34,14 @@ def gettask(id):
 @app.route('/task', methods=['POST'])
 def posttask():
     post_json = request.get_data()
-    response = post_task(post_json)
-    return response
+    return post_task(post_json)
 
 
 @app.route('/task/<id>', methods=['POST'])
-def updatetask():
+def updatetask(id):
+    print("test")
     post_json = request.get_data()
-    response = update_task(post_json)
-    return response
+    return update_task(post_json)
 
 
 # おまじない
