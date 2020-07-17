@@ -38,20 +38,48 @@ def get_task(n):
 
 
 def post_task(n):
+    posted = json.loads(n)
+    title = str(posted['title'])
+    context = str(posted['context'])
+    limit_date = str(posted['limit_date'])
+
     conn = get_connecter()
     try:
-        posted = json.loads(n)
-        title = str(posted['title'])
-        context = str(posted['context'])
-        limit_date = str(posted['limit_date'])
         with conn.cursor() as cursor:
             sql = '''INSERT INTO
              todo (title, context, done, created_at, limit_date, updated_at)
              VALUES (%s, %s, 0, NOW(), %s, NOW())'''
             cursor.execute(sql, (title, context, limit_date))
             conn.commit()
+            response = "COMPLETE INSERT"
     except Exception as e:
         print(e)
+        response = "ERROR"
     finally:
         conn.close()
-    return "complete"
+    return response
+
+
+def update_task(n):
+    posted = json.loads(n)
+    id = str(posted['id'])
+    title = str(posted['title'])
+    context = str(posted['context'])
+    done = str(posted['done'])
+    limit_date = str(posted['limit_date'])
+
+    conn = get_connecter()
+    try:
+        with conn.cursor() as cursor:
+            sql = '''UPDATE todo
+            SET title = %s
+            WHERE id = %s'''
+            cursor.execute(sql)
+            conn.commit()
+            response = "COMPLETE UPDATE"
+    except Exception as e:
+        print(e)
+        response = "ERROR"
+    finally:
+        conn.close()
+    return response
