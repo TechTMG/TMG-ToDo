@@ -39,7 +39,6 @@ def posttask():
 
 @app.route('/task/<id>', methods=['POST'])
 def updatetask(id):
-    print("test")
     post_json = request.get_data()
     return update_task(post_json)
 
