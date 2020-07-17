@@ -86,10 +86,10 @@ def update_task(n):
             WHERE id = %s'''
             cursor.execute(sql, (title, context, done, limit_date, taskid))
             conn.commit()
-            response = "COMPLETE UPDATE"
+            result = "COMPLETE UPDATE"
     except Exception as e:
         print(e)
-        response = "ERROR"
+        result = "ERROR"
     finally:
         conn.close()
-    return response
+    return result
