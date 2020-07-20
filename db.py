@@ -28,12 +28,12 @@ def get_alltask():
     return result
 
 
-def get_task(n):
+def get_task(task_id):
     conn = get_connecter()
     try:
         with conn.cursor() as cursor:
             sql = 'SELECT * FROM todo WHERE id = %s'
-            cursor.execute(sql, (n))
+            cursor.execute(sql, (task_id))
             result = cursor.fetchone()
     except Exception as e:
         print(e)
@@ -43,8 +43,8 @@ def get_task(n):
     return result
 
 
-def post_task(n):
-    posted = json.loads(n)
+def post_task(task_json):
+    posted = json.loads(task_json)
     title = str(posted['title'])
     context = str(posted['context'])
     limit_date = str(posted['limit_date'])
@@ -66,9 +66,9 @@ def post_task(n):
     return result
 
 
-def update_task(n):
-    posted = json.loads(n)
-    taskid = int(posted['id'])
+def update_task(task_json):
+    posted = json.loads(task_json)
+    task_id = int(posted['id'])
     title = str(posted['title'])
     context = str(posted['context'])
     done = int(posted['done'])
@@ -85,7 +85,7 @@ def update_task(n):
                 limit_date = %s,
                 updated_at = NOW()
             WHERE id = %s'''
-            cursor.execute(sql, (title, context, done, limit_date, taskid))
+            cursor.execute(sql, (title, context, done, limit_date, task_id))
             conn.commit()
             result = "COMPLETE UPDATE"
     except Exception as e:
@@ -96,7 +96,7 @@ def update_task(n):
     return result
 
 
-def cancel_task(id):
+def cancel_task(task_id):
     conn = get_connecter()
     try:
         with conn.cursor() as cursor:
@@ -105,7 +105,7 @@ def cancel_task(id):
                 done = 2,
                 updated_at = NOW()
             WHERE id = %s'''
-            cursor.execute(sql, (id))
+            cursor.execute(sql, (task_id))
             conn.commit()
             result = "COMPLETE CANCEL"
     except Exception as e:
