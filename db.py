@@ -78,11 +78,12 @@ def update_task(n):
     try:
         with conn.cursor() as cursor:
             sql = '''UPDATE todo
-            SET title = %s,
-            context = %s,
-            done = %s,
-            limit_date = %s,
-            updated_at = NOW()
+            SET
+                title = %s,
+                context = %s,
+                done = %s,
+                limit_date = %s,
+                updated_at = NOW()
             WHERE id = %s'''
             cursor.execute(sql, (title, context, done, limit_date, taskid))
             conn.commit()
