@@ -96,7 +96,7 @@ def update_task(n):
     return result
 
 
-def cancel_task(n):
+def cancel_task(id):
     conn = get_connecter()
     try:
         with conn.cursor() as cursor:
@@ -105,7 +105,7 @@ def cancel_task(n):
                 done = 2,
                 updated_at = NOW()
             WHERE id = %s'''
-            cursor.execute(sql, (n))
+            cursor.execute(sql, (id))
             conn.commit()
             result = "COMPLETE CANCEL"
     except Exception as e:
