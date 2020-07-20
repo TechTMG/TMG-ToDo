@@ -21,9 +21,14 @@ $ pipenv install
 ```
 $ pipenv shell
 ```
-APIサーバを立ち上げる（仮想環境）
+
+APIサーバを立ち上げる
 ```
-$ python api.py
+$ pipenv run tmg
+```
+上記で失敗した場合
+```
+$ pipenv run python api.py
 ```
 
 ## テストサンプル
@@ -32,4 +37,9 @@ $ python api.py
 POSTテスト用サンプル
 ```
 $ curl http://127.0.0.1:5000/task -X POST -H "Content-Type: application/json" --data '{"title": "title X", "context": "context X", "limit_date": "2020-07-31 23:59:59"}'
+```
+
+UPDATEテスト用サンプル
+```
+curl http://127.0.0.1:5000/task/5 -X POST -H "Content-Type: application/json" --data '{"id": "1", "title": "title update", "context": "context update", "done": "1", "limit_date": "2020-07-31 23:59:59"}'
 ```
