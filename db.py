@@ -1,13 +1,14 @@
 import pymysql.cursors
 import json
+import os
 
 
 def get_connecter():
     conn = pymysql.connect(
-        host='localhost',
-        user='root',
-        db='test-schema',
-        charset='utf8mb4',
+        host=os.environ['TMG_HOST'],
+        user=os.environ['TMG_USER'],
+        db=os.environ['TMG_DB'],
+        charset=os.environ['TMG_CHARSET'],
         cursorclass=pymysql.cursors.DictCursor
     )
     return conn
