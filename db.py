@@ -94,3 +94,23 @@ def update_task(n):
     finally:
         conn.close()
     return result
+
+
+def cancel_task(n):
+    conn = get_connecter()
+    try:
+        with conn.cursor() as cursor:
+            sql = '''UPDATE todo
+            SET
+                done = 2,
+                updated_at = NOW()
+            WHERE id = %s'''
+            cursor.execute(sql, (n))
+            conn.commit()
+            result = "COMPLETE CANCEL"
+    except Exception as e:
+        print(e)
+        result = "ERROR"
+    finally:
+        conn.close()
+    return result
