@@ -1,5 +1,8 @@
 from flask import Flask, request, jsonify
-from db import get_alltask, get_task, post_task, update_task, cancel_task
+from db import (
+    get_alltask, get_task, post_task, update_task,
+    achieve_task, cancel_task
+)
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -41,6 +44,11 @@ def posttask():
 def updatetask(id):
     post_json = request.get_data()
     return update_task(post_json)
+
+
+@app.route('/task/achieve/<id>', methods=['GET'])
+def achievetask(id):
+    return achieve_task(id)
 
 
 @app.route('/task/cancel/<id>', methods=['GET'])

@@ -96,6 +96,26 @@ def update_task(task_json):
     return result
 
 
+def achieve_task(task_id):
+    conn = get_connecter()
+    try:
+        with conn.cursor() as cursor:
+            sql = '''UPDATE todo
+            SET
+                done = 1,
+                updated_at = NOW()
+            WHERE id = %s'''
+            cursor.execute(sql, (task_id))
+            conn.commit()
+            result = "COMPLETE ACHIEVE"
+    except Exception as e:
+        print(e)
+        result = "ERROR"
+    finally:
+        conn.close()
+    return result
+
+
 def cancel_task(task_id):
     conn = get_connecter()
     try:
